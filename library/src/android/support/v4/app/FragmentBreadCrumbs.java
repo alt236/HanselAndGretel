@@ -17,8 +17,6 @@
 
 package android.support.v4.app;
 
-import com.jakewharton.hanselandgretel.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.FragmentManager.BackStackEntry;
@@ -29,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.jakewharton.hanselandgretel.R;
 
 /**
  * Helper class for showing "bread crumbs" representing the fragment
@@ -57,7 +57,7 @@ public class FragmentBreadCrumbs extends ViewGroup
         @Override
 		public void onClick(View v) {
             if (v.getTag() instanceof BackStackEntry) {
-                BackStackEntry bse = (BackStackEntry) v.getTag();
+                final BackStackEntry bse = (BackStackEntry) v.getTag();
                 if (bse == mParentEntry) {
                     if (mParentClickListener != null) {
                         mParentClickListener.onClick(v);
@@ -79,6 +79,7 @@ public class FragmentBreadCrumbs extends ViewGroup
             }
         }
     };
+
     /** Listener to inform when a parent entry is clicked */
     private OnClickListener mParentClickListener;
 
@@ -297,8 +298,10 @@ public class FragmentBreadCrumbs extends ViewGroup
 
                 final TextView text = (TextView) item.findViewById(android.R.id.title);
                 final ImageView icon = ( ImageView) item.findViewById(android.R.id.icon1);
+                icon.setClickable(true);
 
                 boolean hasSetIcon = false;
+
                 if(bse instanceof BackStackEntryWithIcon){
                 	final BackStackEntryWithIcon ibse = (BackStackEntryWithIcon) bse;
                 	if(ibse.getIconResId() > 0){
@@ -308,21 +311,23 @@ public class FragmentBreadCrumbs extends ViewGroup
                 }
 
                 if(hasSetIcon){
-                	icon.setVisibility(View.VISIBLE);
                 	text.setVisibility(View.GONE);
+                	icon.setVisibility(View.VISIBLE);
+                	icon.setOnClickListener(mOnClickListener);
+                	icon.setTag(bse);
                 } else {
                 	icon.setVisibility(View.GONE);
                 	text.setVisibility(View.VISIBLE);
                 	text.setText(bse.getBreadCrumbTitle());
+                	text.setOnClickListener(mOnClickListener);
+                	text.setTag(bse);
                 }
 
-
-                text.setTag(bse);
                 if (i == 0) {
                     item.findViewById(android.R.id.icon).setVisibility(View.GONE);
                 }
+
                 mContainer.addView(item);
-                text.setOnClickListener(mOnClickListener);
             }
         }
         int viewI = numEntries + numPreEntries;
