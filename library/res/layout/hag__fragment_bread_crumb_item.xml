@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!--
+     Copyright (C) 2010 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License
@@ -14,28 +15,36 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@android:id/icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        >
+        android:layout_marginBottom="12dip"
+        android:layout_marginTop="12dip"
+        android:scaleType="fitXY"
+        android:src="?attr/hagDividerVertical" />
+
     <ImageView
-            android:id="@android:id/icon"
-            android:src="?attr/hagDividerVertical"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:scaleType="fitXY"
-            android:layout_marginTop="12dip"
-            android:layout_marginBottom="12dip"
-        />
+        android:id="@android:id/icon1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="12dip"
+        android:layout_marginTop="12dip"
+        android:scaleType="centerInside"
+        android:src="@android:drawable/ic_menu_gallery" />
 
     <TextView
-            android:id="@android:id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:background="?attr/hagSelectableItemBackground"
-            />
+        android:id="@android:id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="?attr/hagSelectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </LinearLayout>
