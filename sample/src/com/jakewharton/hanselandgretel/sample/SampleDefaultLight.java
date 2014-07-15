@@ -43,9 +43,15 @@ public class SampleDefaultLight extends FragmentActivity {
         crumbs.setActivity(this);
         crumbs.setTitle("Base", null);
 
+        if(getIntent().getExtras() != null &&
+        		getIntent().getExtras().getBoolean(Constants.EXTRA_USE_ICON_AS_HOME, false)){
+        	crumbs.setTitleIcon(R.drawable.ic_breadcrumb_home);
+        }
+
         // Watch for button clicks.
         Button button = (Button)findViewById(R.id.new_fragment);
         button.setOnClickListener(new OnClickListener() {
+        	 @Override
             public void onClick(View v) {
                 addFragmentToStack();
             }
