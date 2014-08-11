@@ -23,8 +23,8 @@
         android:id="@android:id/icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="12dip"
-        android:layout_marginTop="12dip"
+        android:layout_marginBottom="6dip"
+        android:layout_marginTop="6dip"
         android:scaleType="fitXY"
         android:src="?attr/hagDividerVertical" />
 

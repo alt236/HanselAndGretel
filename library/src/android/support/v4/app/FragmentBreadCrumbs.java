@@ -49,9 +49,8 @@ public class FragmentBreadCrumbs extends ViewGroup
     FragmentActivity mActivity;
     LinearLayout mContainer;
     LayoutInflater mInflater;
-
-
     int mMaxVisible = -1;
+
     private OnBreadCrumbClickListener mOnBreadCrumbClickListener;
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
@@ -82,10 +81,9 @@ public class FragmentBreadCrumbs extends ViewGroup
 
     /** Listener to inform when a parent entry is clicked */
     private OnClickListener mParentClickListener;
-
-    BackStackEntryWithIcon mParentEntry;
+    private BackStackEntryWithIcon mParentEntry;
     // Hahah
-    BackStackEntryWithIcon mTopEntry;
+    private BackStackEntryWithIcon mTopEntry;
 
     public FragmentBreadCrumbs(Context context) {
         this(context, null);
