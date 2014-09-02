@@ -5,7 +5,7 @@ public class BackStackRecordWrapper implements BackStackEntryWithIcon{
 	private int mIconRes;
 	private final BackStackRecord mRecord;
 
-	public BackStackRecordWrapper(BackStackRecord record){
+	public BackStackRecordWrapper(final BackStackRecord record){
 		mRecord = record;
 	}
 

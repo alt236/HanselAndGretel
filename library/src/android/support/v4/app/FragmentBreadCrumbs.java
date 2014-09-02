@@ -33,6 +33,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.jakewharton.hanselandgretel.R;
 
 /**
@@ -86,7 +87,12 @@ implements FragmentManager.OnBackStackChangedListener {
 					}
 					if (bse == mTopEntry) {
 						// Pop everything off the back stack.
-						mActivity.getSupportFragmentManager().popBackStack();
+						if(mTopEntryClearsStack){
+							final BackStackEntry first = mActivity.getSupportFragmentManager().getBackStackEntryAt(0);
+							mActivity.getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+						} else {
+							mActivity.getSupportFragmentManager().popBackStack();
+						}
 					} else {
 						mActivity.getSupportFragmentManager().popBackStack(bse.getId(), 0);
 					}
@@ -101,6 +107,8 @@ implements FragmentManager.OnBackStackChangedListener {
 	private BackStackEntryWithIcon mParentEntry;
 	// Hahah
 	private BackStackEntryWithIcon mTopEntry;
+	private boolean mTopEntryClearsStack;
+
 	public FragmentBreadCrumbs(Context context) {
 		this(context, null);
 	}
@@ -256,6 +264,11 @@ implements FragmentManager.OnBackStackChangedListener {
 		mPaddingBottom = bottom;
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public void setCrumbTransition(LayoutTransition transition){
+		mContainer.setLayoutTransition(transition);
+	}
+
 	/**
 	 * The maximum number of breadcrumbs to show. Older fragment headers will be hidden from view.
 	 * @param visibleCrumbs the number of visible breadcrumbs. This should be greater than zero.
@@ -288,8 +301,7 @@ implements FragmentManager.OnBackStackChangedListener {
 	 * @param listener the {@link android.view.View.OnClickListener} to be called when clicked.
 	 * A null will result in no action being taken when the parent entry is clicked.
 	 */
-	public void setParentTitle(CharSequence title, CharSequence shortTitle,
-			OnClickListener listener) {
+	public void setParentTitle(CharSequence title, CharSequence shortTitle, OnClickListener listener) {
 		mParentEntry = createBackStackEntry(title, shortTitle);
 		mParentClickListener = listener;
 		updateCrumbs();
@@ -322,6 +334,10 @@ implements FragmentManager.OnBackStackChangedListener {
 		wrapper.setIconRes(drawableRes);
 		mTopEntry = wrapper;
 		updateCrumbs();
+	}
+
+	public void setTopEntryClearsStack(boolean value){
+		mTopEntryClearsStack = value;
 	}
 
 	void updateCrumbs() {
@@ -432,11 +448,6 @@ implements FragmentManager.OnBackStackChangedListener {
 						: View.GONE);
 			}
 		}
-	}
-
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void setCrumbTransition(LayoutTransition transition){
-		mContainer.setLayoutTransition(transition);
 	}
 
 	//XXX As per View
