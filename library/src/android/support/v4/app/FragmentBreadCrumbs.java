@@ -88,8 +88,10 @@ implements FragmentManager.OnBackStackChangedListener {
 					if (bse == mTopEntry) {
 						// Pop everything off the back stack.
 						if(mTopEntryClearsStack){
-							final BackStackEntry first = mActivity.getSupportFragmentManager().getBackStackEntryAt(0);
-							mActivity.getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+							if(mActivity.getSupportFragmentManager().getBackStackEntryCount() > 0){
+								final BackStackEntry first = mActivity.getSupportFragmentManager().getBackStackEntryAt(0);
+								mActivity.getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+							}
 						} else {
 							mActivity.getSupportFragmentManager().popBackStack();
 						}
